@@ -1,5 +1,8 @@
 package ldap
 
+/*
+ * User entity taken from an LDAP entry.
+ */
 case class User(
     uid: String,
     firstName: String,
