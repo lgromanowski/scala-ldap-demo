@@ -54,23 +54,37 @@ class SearchLDAP(conn: RoLDAPConnection) {
     groupEntries.flatMap(ldapEntryToGroup)
   }
 
+  // TODO: write this based on what fields are actually mandatory/optional
   private[this] def ldapEntryToUser(e: LDAPEntry): Option[User] =
-    for {
-      uid <- e("uid")
-      givenname <- e("givenname")
-      sn <- e("sn")
-      location <- e("l")
-      email <- e("mail")
-      phoneNumber <- e("telephonenumber")
-      roomNumber <- e("roomnumber")
-      password <- e("userpassword")
-    } yield User(uid, givenname, sn, location, email, phoneNumber, roomNumber, password)
+    e("uid").map { uid =>
+      User(
+        uid = uid,
+        firstName = e("givenname").getOrElse(""),
+        surname = e("sn").getOrElse(""),
+        location = e("l").getOrElse(""),
+        email = e("mail").getOrElse(""),
+        phoneNumber = e("telephonenumber").getOrElse(""),
+        roomNumber = e("roomnumber").getOrElse(""),
+        password = e("userpassword").getOrElse("")
+      )
+    }
 
-  private[this] def ldapEntryToGroup(e: LDAPEntry): Option[Group] =
-    for {
+  // TODO: write this based on what fields are actually mandatory/optional
+  private[this] def ldapEntryToGroup(e: LDAPEntry): Option[Group] = {
+    case class GroupKeyFields(name: String, gidNumber: Int)
+    val groupKeyFields: Option[GroupKeyFields] = for {
       name <- e("cn")
-      gidNumber <- e("gidNumber")
-      memberUids <- e.attribute("memberUid")
-      description <- e("description")
-    } yield Group(name, gidNumber.toInt, memberUids.getValues, description)
+      gidNumber <- e("gidNumber").map(_.toInt)
+    } yield GroupKeyFields(name, gidNumber)
+
+    groupKeyFields.map { groupKeyFields =>
+      val memberUids: Option[Seq[String]] = e.attribute("memberUid").map(_.getValues)
+      Group(
+        name = groupKeyFields.name,
+        gidNumber = groupKeyFields.gidNumber,
+        memberUids = memberUids.getOrElse(Nil),
+        description = e("description").getOrElse("")
+      )
+    }
+  }
 }
