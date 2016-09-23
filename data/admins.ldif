@@ -59,7 +59,7 @@ memberUid: acarter
 memberUid: gbrown
 description: Highest admin privilege level. Deletions, mass grants, reset game progress
 
-dn: uid=jsmith,dc=example,dc=com
+dn: uid=jsmith,ou=People,dc=example,dc=com
 cn: John Smith
 sn: Smith
 givenname: John
@@ -75,7 +75,7 @@ telephonenumber: +1 415 555 4799
 roomnumber: 4612
 userpassword: tobehashed
 
-dn: uid=jdoe,dc=example,dc=com
+dn: uid=jdoe,ou=People,dc=example,dc=com
 cn: Jane Doe
 sn: Doe
 givenname: Jane
@@ -91,7 +91,7 @@ telephonenumber: +1 415 555 4798
 roomnumber: 4613
 userpassword: tobehashed
 
-dn: uid=jjones,dc=example,dc=com
+dn: uid=jjones,ou=People,dc=example,dc=com
 cn: John Jones
 sn: Jones
 givenname: John
@@ -107,7 +107,7 @@ telephonenumber: +1 415 555 4797
 roomnumber: 4614
 userpassword: tobehashed
 
-dn: uid=acarter,dc=example,dc=com
+dn: uid=acarter,ou=People,dc=example,dc=com
 cn: Anne Carter
 sn: Carter
 givenname: Anne
@@ -123,7 +123,7 @@ telephonenumber: +1 415 555 4796
 roomnumber: 4615
 userpassword: tobehashed
 
-dn: uid=jxi,dc=example,dc=com
+dn: uid=jxi,ou=People,dc=example,dc=com
 cn: Jack Xi
 sn: Xi
 givenname: Jack
@@ -139,7 +139,7 @@ telephonenumber: +1 415 555 4795
 roomnumber: 4616
 userpassword: tobehashed
 
-dn: uid=rjohnson,dc=example,dc=com
+dn: uid=rjohnson,ou=People,dc=example,dc=com
 cn: Robert Johnson
 sn: Johnson
 givenname: Robert
@@ -155,7 +155,7 @@ telephonenumber: +1 415 555 4794
 roomnumber: 4617
 userpassword: tobehashed
 
-dn: uid=ewilliams,dc=example,dc=com
+dn: uid=ewilliams,ou=People,dc=example,dc=com
 cn: Emma Williams
 sn: Williams
 givenname: Emma
@@ -171,7 +171,7 @@ telephonenumber: +1 415 555 4793
 roomnumber: 4618
 userpassword: tobehashed
 
-dn: uid=gbrown,dc=example,dc=com
+dn: uid=gbrown,ou=People,dc=example,dc=com
 cn: George
 sn: Brown
 givenname: George
@@ -187,7 +187,7 @@ telephonenumber: +1 415 555 4792
 roomnumber: 4619
 userpassword: tobehashed
 
-dn: uid=cdavis,dc=example,dc=com
+dn: uid=cdavis,ou=People,dc=example,dc=com
 cn: Charlie Davis
 sn: Davis
 givenname: Charlie
@@ -203,7 +203,7 @@ telephonenumber: +1 415 555 4791
 roomnumber: 4620
 userpassword: tobehashed
 
-dn: uid=omiller,dc=example,dc=com
+dn: uid=omiller,ou=People,dc=example,dc=com
 cn: Oliver Miller
 sn: Miller
 givenname: Oliver
