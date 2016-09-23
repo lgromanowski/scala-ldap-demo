@@ -1,27 +1,32 @@
 package ldap
 
 import com.normation.ldap.sdk._
-import com.typesafe.config.ConfigFactory
+import net.liftweb.common.Full
 
-import scala.util.{Failure, Success, Try}
+import scala.util.Try
 
 object SearchLDAPDemo extends App {
 
-  val config = ConfigFactory.load()
-
-  val ldapHost = config.getString("ldapHost")
-  val ldapPort = config.getInt("ldapPort")
-
-  getLdapConnection(ldapHost, ldapPort) match {
-    case Success(conn) => runSearches(conn)
-    case Failure(conn) => println(s"Unable to connect to ldap host at $ldapHost:$ldapPort")
+  LDAPConnectionWithProvider.get.foreach { connWithProvider =>
+      println(s"Connected to ${connWithProvider.provider.host}:${connWithProvider.provider.port}")
+      runSearches(connWithProvider.conn)
+      val bindDN = "uid=jsmith,ou=People,dc=example,dc=com"
+      val password = "tobehashed"
+      val loginResult = login(connWithProvider.provider, bindDN, password)
+      println("loginResult: " + loginResult)
   }
 
-  def getLdapConnection(ldapHost: String, ldapPort: Int): Try[RoLDAPConnection] = {
-    val provider = new ROAnonymousConnectionProvider(host = ldapHost, port = ldapPort)
-    Try(provider.newConnection)
-    // TODO: try the backup LDAP server(s)
-  }
+  /*
+   * Return true or false depending on whether the login was successful with the supplied
+   * credentials.
+   * The password is in plaintext on the assumption we are operating in a VPN.
+   */
+  def login(provider: LDAPConnectionProvider[RoLDAPConnection], bindDN: String, password: String):
+      Boolean =
+    provider.map { p =>
+      val bindResult = Try(p.backed.bind(bindDN, password))
+      bindResult.map(_.getResultCode.isConnectionUsable).isSuccess
+    } == Full(true)
 
   def runSearches(conn: RoLDAPConnection): Unit = {
 
@@ -34,7 +39,7 @@ object SearchLDAPDemo extends App {
     println(s"user retrieved: $userJsmith\n")
 
     val groups = search.getLDAPGroupNamesForUser("jsmith")
-    println("groups: " + groups.mkString)
+    println(s"groups: ${groups.mkString}\n")
   }
 }
 

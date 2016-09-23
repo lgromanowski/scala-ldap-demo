@@ -5,6 +5,9 @@ import com.normation.ldap.sdk.{BuildFilter, LDAPEntry, RoLDAPConnection}
 import com.typesafe.config.ConfigFactory
 import com.unboundid.ldap.sdk.DN
 
+/*
+ * Functionality for searching an LDAP directory for users and groups.
+ */
 class SearchLDAP(conn: RoLDAPConnection) {
 
   val config = ConfigFactory.load()
@@ -13,7 +16,7 @@ class SearchLDAP(conn: RoLDAPConnection) {
   val peopleDN = new DN(s"ou=People,$rootDN")
 
   def queryAllAdmins: Seq[User] = {
-    val userEntries: Seq[LDAPEntry] = conn.searchOne(rootDN/*peopleDN*/, ALL)
+    val userEntries: Seq[LDAPEntry] = conn.searchOne(peopleDN, ALL)
     userEntries.flatMap(ldapEntryToUser)
   }
 
@@ -21,14 +24,19 @@ class SearchLDAP(conn: RoLDAPConnection) {
   case object UserNotFound extends LookupFailure
   case object MoreThanOneUserFound extends LookupFailure
 
-  // logic translated from the PHP _getLDAPUser method, some of which looks hacky
+  /*
+   * Get an LDAP user.
+   * Logic translated from the PHP _getLDAPUser method, some of which looks hacky.
+   */
   def getLDAPUser(username: String, ou: String = "People"): Either[LookupFailure, User] = {
 
+    val dn = new DN(s"ou=$ou,$rootDN")
     val userEntries: Seq[LDAPEntry] =
       if (ou == "People" || ou == "locked")
-        conn.searchOne(rootDN, BuildFilter.EQ("uid", username))
+        // TODO: why does the old PHP code use rootDN here instead of dn?
+        conn.searchOne(dn, BuildFilter.EQ("uid", username))
       else
-        conn.searchOne(new DN(s"ou=$ou,$rootDN"), BuildFilter.EQ("cn", username))
+        conn.searchOne(dn, BuildFilter.EQ("cn", username))
 
     if (userEntries.size > 1) Left(MoreThanOneUserFound)
     else {
@@ -42,10 +50,17 @@ class SearchLDAP(conn: RoLDAPConnection) {
     }
   }
 
+  /*
+   * Get the groups a user belongs to. Returns group names.
+   * Logic translated from legacy PHP method
+   */
   def getLDAPGroupNamesForUser(username: String): Seq[String] =
     getLDAPGroupsForUser(username).map(_.name).sorted
 
-  // logic translated from legacy PHP method
+  /*
+   * Get the groups a user belongs to. Returns group entities.
+   * Logic translated from legacy PHP method
+   */
   def getLDAPGroupsForUser(username: String): Seq[Group] = {
     val isAGroupFilter = BuildFilter.EQ("objectclass", "posixGroup")
     val groupHasUserFilter = BuildFilter.EQ("memberuid", username)
