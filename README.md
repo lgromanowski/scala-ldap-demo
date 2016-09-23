@@ -39,7 +39,7 @@ Run the sample code
 ===================
 
 Assuming you have Scala and `sbt` installed, go into the `scala-ldap-demo` directory, run `sbt` and then
-type `run`. This runs the code in [LdapDemo.scala](src/main/scala/LdapDemo.scala). You should see data retrieved from the LDAP server when some queries are run like this:
+type `run`. This runs the code in [LDAPDemo.scala](src/main/scala/ldap/LDAPDemo.scala). You should see data retrieved from the LDAP server when some queries are run like this:
 
 
     All admins:
