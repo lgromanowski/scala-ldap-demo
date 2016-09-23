@@ -69,15 +69,13 @@ class SearchLDAP(conn: RoLDAPConnection) {
       )
     }
 
+  case class GroupKeyFields(name: String, gidNumber: Int)
   // TODO: write this based on what fields are actually mandatory/optional
   private[this] def ldapEntryToGroup(e: LDAPEntry): Option[Group] = {
-    case class GroupKeyFields(name: String, gidNumber: Int)
-    val groupKeyFields: Option[GroupKeyFields] = for {
+    (for {
       name <- e("cn")
       gidNumber <- e("gidNumber").map(_.toInt)
-    } yield GroupKeyFields(name, gidNumber)
-
-    groupKeyFields.map { groupKeyFields =>
+    } yield GroupKeyFields(name, gidNumber)).map { groupKeyFields =>
       val memberUids: Option[Seq[String]] = e.attribute("memberUid").map(_.getValues)
       Group(
         name = groupKeyFields.name,
