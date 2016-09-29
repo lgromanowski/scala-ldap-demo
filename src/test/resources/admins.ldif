@@ -1,0 +1,223 @@
+# Made-up LDIF data for a Customer Service Admin tool
+#
+version: 1
+dn: dc=example,dc=com
+objectclass: top
+objectclass: domain
+dc: example
+
+dn: ou=People,dc=example,dc=com
+objectclass: top
+objectclass: organizationalunit
+ou: People
+
+dn: ou=locked,dc=example,dc=com
+objectclass: top
+objectclass: organizationalunit
+ou: locked
+
+dn: ou=Groups, dc=example,dc=com
+objectclass: top
+objectclass: organizationalunit
+ou: Groups
+
+dn: cn=Level 1 Admins,dc=example,dc=com
+objectClass: posixGroup
+objectClass: top
+cn: Level 1 Admins
+gidNumber: 100
+memberUid: jsmith
+memberUid: jxi
+memberUid: cdavis
+description: Lowest admin privilege level. Granting, historic view, basics, associate to social networks
+
+dn: cn=Level 2 Admins,dc=example,dc=com
+objectClass: posixGroup
+objectClass: top
+cn: Level 2 Admins
+gidNumber: 200
+memberUid: jdoe
+memberUid: rjohnson
+memberUid: omiller
+description: Billing Agents: detailed billing and higher currency granting (but not items or rss)
+
+dn: cn=Level 3 Admins,dc=example,dc=com
+objectClass: posixGroup
+objectClass: top
+cn: Level 3 Admins
+gidNumber: 300
+memberUid: jjones
+memberUid: ewilliams
+description: (ERT, supervisors/team leads in telus) All level 1 & 2 + blob editing, mass granting, cloning, ban and warn
+
+dn: cn=Level 4 Admins,dc=example,dc=com
+objectClass: posixGroup
+objectClass: top
+cn: Level 4 Admins
+gidNumber: 400
+memberUid: acarter
+memberUid: gbrown
+description: Highest admin privilege level. Deletions, mass grants, reset game progress
+
+dn: uid=jsmith,ou=People,dc=example,dc=com
+cn: John Smith
+sn: Smith
+givenname: John
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: jsmith
+mail: jsmith@example.com
+telephonenumber: +1 415 555 4799
+roomnumber: 4612
+userpassword: tobehashed
+
+dn: uid=jdoe,ou=People,dc=example,dc=com
+cn: Jane Doe
+sn: Doe
+givenname: Jane
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: jdoe
+mail: jdoe@example.com
+telephonenumber: +1 415 555 4798
+roomnumber: 4613
+userpassword: tobehashed
+
+dn: uid=jjones,ou=People,dc=example,dc=com
+cn: John Jones
+sn: Jones
+givenname: John
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: jjones
+mail: jjones@example.com
+telephonenumber: +1 415 555 4797
+roomnumber: 4614
+userpassword: tobehashed
+
+dn: uid=acarter,ou=People,dc=example,dc=com
+cn: Anne Carter
+sn: Carter
+givenname: Anne
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: acarter
+mail: acarter@example.com
+telephonenumber: +1 415 555 4796
+roomnumber: 4615
+userpassword: tobehashed
+
+dn: uid=jxi,ou=People,dc=example,dc=com
+cn: Jack Xi
+sn: Xi
+givenname: Jack
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: jxi
+mail: jxi@example.com
+telephonenumber: +1 415 555 4795
+roomnumber: 4616
+userpassword: tobehashed
+
+dn: uid=rjohnson,ou=People,dc=example,dc=com
+cn: Robert Johnson
+sn: Johnson
+givenname: Robert
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: rjohnson
+mail: rjohnson@example.com
+telephonenumber: +1 415 555 4794
+roomnumber: 4617
+userpassword: tobehashed
+
+dn: uid=ewilliams,ou=People,dc=example,dc=com
+cn: Emma Williams
+sn: Williams
+givenname: Emma
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: ewilliams
+mail: ewilliams@example.com
+telephonenumber: +1 415 555 4793
+roomnumber: 4618
+userpassword: tobehashed
+
+dn: uid=gbrown,ou=People,dc=example,dc=com
+cn: George
+sn: Brown
+givenname: George
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: gbrown
+mail: gbrown@example.com
+telephonenumber: +1 415 555 4792
+roomnumber: 4619
+userpassword: tobehashed
+
+dn: uid=cdavis,ou=People,dc=example,dc=com
+cn: Charlie Davis
+sn: Davis
+givenname: Charlie
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: cdavis
+mail: cdavis@example.com
+telephonenumber: +1 415 555 4791
+roomnumber: 4620
+userpassword: tobehashed
+
+dn: uid=omiller,ou=People,dc=example,dc=com
+cn: Oliver Miller
+sn: Miller
+givenname: Oliver
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+ou: People
+l: San Francisco
+uid: omiller
+mail: omiller@example.com
+telephonenumber: +1 415 555 4790
+roomnumber: 4621
+userpassword: tobehashed
+
+
+
